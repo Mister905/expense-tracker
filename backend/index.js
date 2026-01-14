@@ -1,11 +1,11 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import express from "express";
+import expensesRouter from "./routes/expenses.js";
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
+app.use(express.json());
+app.use("/expenses", expensesRouter);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log("Server running on port 3000");
+});
