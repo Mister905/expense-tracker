@@ -1,0 +1,7 @@
+@use '../variables' as *;
+
+.expense-list {
+  // background: white;
+  border-radius: $border-radius;
+  padding: $spacing;
+}

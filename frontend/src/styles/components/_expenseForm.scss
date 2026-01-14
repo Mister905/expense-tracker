@@ -1,0 +1,7 @@
+@use '../variables' as *;
+
+.expense-form {
+//   background: white;
+  padding: $spacing;
+  border-radius: $border-radius;
+}
