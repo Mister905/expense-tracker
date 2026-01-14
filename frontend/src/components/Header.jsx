@@ -1,7 +1,15 @@
-const Header = () => {
+import React from "react";
+import "../styles/components/_header.scss";
+
+const Header = ({ onAddExpense }) => {
   return (
     <>
-      <h1>Header</h1>
+      <header className="header">
+        <h1>Expense Tracker</h1>
+        <button className="button" onClick={onAddExpense}>
+          New Expense
+        </button>
+      </header>
     </>
   );
 };
