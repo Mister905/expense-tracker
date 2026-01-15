@@ -1,31 +1,36 @@
 .expense-card {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: white;
+  align-items: flex-start;
+  gap: 1.5rem;
+
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-  .expense-details {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+.expense-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 
-    span {
-      font-size: 0.95rem;
-      color: #333;
-    }
+  font-size: 0.95rem;
+  color: #111827;
 
-    .amount {
-      font-weight: bold;
-      color: #4caf50;
-    }
+  .fw-bold {
+    font-weight: 600;
   }
+}
 
-  .expense-actions {
-    display: flex;
-    gap: 8px;
-  }
+.expense-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.btn-warning {
+  background-color: red !important;
 }

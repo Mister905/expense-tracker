@@ -5,11 +5,17 @@ const Header = ({ isFormOpen, onAddExpense }) => {
   return (
     <>
       <header className="header">
-        <h1>Expense Tracker</h1>
-        {/* Disable New Expense Button if form is already open for edit */}
-        <button className="button" onClick={onAddExpense} disabled={isFormOpen}>
-          New Expense
-        </button>
+        <div className="header-inner">
+          <h1>Expense Tracker</h1>
+          {/* Disable New Expense Button if form is already open for edit */}
+          <button
+            className="btn-custom btn-new-expense"
+            onClick={onAddExpense}
+            disabled={isFormOpen}
+          >
+            New Expense +
+          </button>
+        </div>
       </header>
     </>
   );

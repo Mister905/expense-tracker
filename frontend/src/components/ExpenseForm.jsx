@@ -3,17 +3,17 @@ import "../styles/components/_expenseForm.scss";
 
 const ExpenseForm = ({ initialData, onSubmit, onCancel }) => {
   // Controlled inputs
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState("");
   const [vendor, setVendor] = useState("");
   const [category, setCategory] = useState("");
+  const [amount, setAmount] = useState("");
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     if (initialData) {
+      setCategory(initialData.category);
       setAmount(initialData.amount);
       setDate(initialData.date);
       setVendor(initialData.vendor);
-      setCategory(initialData.category);
     }
   }, [initialData]);
 
@@ -34,73 +34,82 @@ const ExpenseForm = ({ initialData, onSubmit, onCancel }) => {
 
     if (!initialData) {
       // Only reset on create to avoid clearing fields before the edit form closes
-      setAmount("");
-      setDate("");
       setVendor("");
       setCategory("");
+      setAmount("");
+      setDate("");
     }
   };
 
   return (
     <>
-      <p className="required-warning">*All fields are required</p>
-      <form onSubmit={handleSubmit}>
-        {/* Link label to input via htmlFor/id for screen readers and click-to-focus */}
-        <label htmlFor="amount">
-          Amount:{` `}
-          <input
-            id="amount"
-            name="amount"
-            type="number"
-            // step="0.01" reflects currency-style values and to guide browser validation
-            step="0.01"
-            placeholder="Amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-        </label>
+      <form onSubmit={handleSubmit} className="expense-form">
+        <div>*All fields are required</div>
 
-        <label htmlFor="date">
-          Date:{` `}
-          <input
-            id="date"
-            name="date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </label>
+        <div>
+          <label htmlFor="vendor">
+            Vendor:{` `}
+            <input
+              id="vendor"
+              name="vendor"
+              type="text"
+              placeholder="Vendor"
+              value={vendor}
+              onChange={(e) => setVendor(e.target.value)}
+            />
+          </label>
+        </div>
 
-        <label htmlFor="vendor">
-          Vendor:{` `}
-          <input
-            id="vendor"
-            name="vendor"
-            type="text"
-            placeholder="Vendor"
-            value={vendor}
-            onChange={(e) => setVendor(e.target.value)}
-          />
-        </label>
+        <div>
+          <label htmlFor="category">
+            Category:{` `}
+            <input
+              id="category"
+              name="category"
+              type="text"
+              placeholder="Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            />
+          </label>
+        </div>
 
-        <label htmlFor="category">
-          Category:{` `}
-          <input
-            id="category"
-            name="category"
-            type="text"
-            placeholder="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-        </label>
+        <div>
+          {/* Link label to input via htmlFor/id for screen readers and click-to-focus */}
+          <label htmlFor="amount">
+            Amount:{` `}
+            <input
+              id="amount"
+              name="amount"
+              type="number"
+              // step="0.01" reflects currency-style values and to guide browser validation
+              step="0.01"
+              placeholder="Amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div>
+          <label htmlFor="date">
+            Date:{` `}
+            <input
+              id="date"
+              name="date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </label>
+        </div>
 
         <div className="actions">
-          <button className="button" type="submit" disabled={isDisabled}>
+          <button type="submit" className="btn-custom" disabled={isDisabled}>
             {/* Button label communicates mode */}
             {initialData ? "Update" : "Submit"}
           </button>
-          <button className="button" type="button" onClick={onCancel}>
+          <button type="button" className="btn-custom" onClick={onCancel}>
             Cancel
           </button>
         </div>

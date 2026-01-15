@@ -4,21 +4,18 @@ import ExpenseItem from "./ExpenseItem";
 
 const ExpenseList = ({ expenses, onEdit, onDelete }) => {
   return (
-    <>
-      <h1>Expenses</h1>
-      <ul>
-        {expenses.map((expense) => {
-          return (
-            <ExpenseItem
-              key={expense.id}
-              expense={expense}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
-          );
-        })}
-      </ul>
-    </>
+    <ul className="ul-expense-list">
+      {expenses.map((expense) => {
+        return (
+          <ExpenseItem
+            key={expense.id}
+            expense={expense}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        );
+      })}
+    </ul>
   );
 };
 

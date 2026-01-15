@@ -1,7 +1,15 @@
 @use '../variables' as *;
 
-.expense-list {
-  // background: white;
+.h1-expenses {
+  font-size: 1.5rem;
+  margin: 25px 0;
+  padding: 0;
+}
+
+.ul-expense-list {
+  flex: 1;                  // flexible width to fill remaining space
+  padding: 0;
+  margin: 0;
+  list-style: none;
   border-radius: $border-radius;
-  padding: $spacing;
 }

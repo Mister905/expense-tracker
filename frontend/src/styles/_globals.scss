@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 
-.button {
+.btn-custom {
   background-color: $primary-color;
   color: white;
   border: none;
@@ -20,6 +20,27 @@ body {
   }
 }
 
-.required-warning {
-  color: red;
+.fw-bold {
+  font-weight: bold;
+}
+
+// Expenses section container
+.expenses-section {
+  padding: 0 50px;
+}
+
+// Two-column layout container (ul and filters)
+.expenses-layout {
+  display: flex;
+  align-items: flex-start; // align top edges
+  gap: 2rem;               // space between columns
+  margin-top: 1rem;        // space below h1
+}
+
+// Responsive: stack vertically on smaller screens
+@media (max-width: 768px) {
+  .expenses-layout {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }

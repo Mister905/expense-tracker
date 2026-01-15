@@ -1,23 +1,85 @@
 @use "../variables" as *;
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: $spacing;
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  color: $text-color;
+  width: 100%;
+  box-sizing: border-box;
 
-  button {
-    background-color: $primary-color;
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; // Space between title and button
+    gap: 1rem; // Fallback gap for spacing
+    max-width: 1400px; // Optional: constrain max width on very large screens
+    margin: 0 auto; // Center content on large screens
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
     color: white;
-    border: none;
-    border-radius: $border-radius;
-    padding: 8px 16px;
-    cursor: pointer;
+    flex-shrink: 0; // Prevent title from shrinking
+    white-space: nowrap; // Prevent title from wrapping
+  }
 
-    &:hover {
+  .btn-new-expense {
+    border: 1px solid white;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    flex-shrink: 0; // Prevent button from shrinking
+    white-space: nowrap; // Keep button text on one line
+    transition: opacity 0.2s ease;
+
+    &:hover:not(:disabled) {
       opacity: 0.9;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Responsive adjustments for smaller screens
+@media (max-width: 768px) {
+  .header {
+    padding: 0.75rem 1rem; // Reduce padding on mobile
+
+    .header-inner {
+      gap: 0.75rem; // Smaller gap on mobile
+    }
+
+    h1 {
+      font-size: 1.25rem; // Slightly smaller title on mobile
+    }
+
+    .btn-new-expense {
+      padding: 0.4rem 0.75rem; // Smaller button padding
+      font-size: 0.9rem; // Slightly smaller font
+    }
+  }
+}
+
+// Extra small screens
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem 0.75rem;
+
+    h1 {
+      font-size: 1.1rem;
+    }
+
+    .btn-new-expense {
+      padding: 0.35rem 0.6rem;
+      font-size: 0.85rem;
     }
   }
 }
