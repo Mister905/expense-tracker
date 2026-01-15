@@ -39,7 +39,8 @@ The application will be available at `http://localhost:5173` (frontend) with the
 - **Dynamic Totals**: Total amount updates based on filtered results
 - **CSV Export**: Download the currently filtered expenses as a CSV file
 - **Responsive UI**: Mobile-friendly interface
-- **Validation & Empty States**: Client/server validation with graceful empty state handling
+- **Validation & Empty States**: Client/server validation (required fields, positive amounts) with graceful empty state handling ("No expenses available" / "No results match the current filters")
+- **Loading & Error Handling**: Loading states during API calls and user-friendly error messages for API failures
 - **Sorting**: Expenses displayed in descending order by date
 - **Clear Filters**: Quickly reset all filter fields
 
@@ -58,7 +59,9 @@ Modular SCSS architecture with global variables/mixins and component-specific pa
 Components: Header, Filters, ExpenseList, ExpenseItem, ExpenseForm, Summary. State management handled at App component level with callbacks passed to children.
 
 ### Form Validation
-In production, form validation and error handling would be handled using a library such as React Hook Form or Formik for robustness and maintainability.
+- **Frontend**: Required field validation, positive number validation (min="0.01"), and HTML5 date input validation
+- **Backend**: Validates all required fields (amount, date, vendor, category) on POST and PUT, and ensures amounts are positive numbers
+- In production, form validation and error handling would be handled using a library such as React Hook Form or Formik for robustness and maintainability.
 
 ### CSV Export
 As a small bonus feature, the application allows exporting the currently filtered expenses to a CSV file. This is implemented as a frontend-only utility to keep the scope aligned with the take-home assignment.
@@ -68,6 +71,14 @@ As a small bonus feature, the application allows exporting the currently filtere
 - **Unique IDs**: Generated using `uuid` package on backend
 - **State Management**: React useState hooks with state lifted to App component
 - **Code Organization**: Modular components, API calls abstracted to service layer
+- **Error Handling**: Loading states and error messages displayed in UI for all API operations (GET, POST, PUT, DELETE)
+- **Empty States**: Context-aware messages distinguish between no expenses and no filtered results
+
+### Bonus Features
+- Export the currently filtered expenses to a CSV file (frontend-only utility).
+- Expenses are displayed in descending order by date.
+- “Clear Filters” button to quickly reset all filter fields.
+These enhancements improve usability while staying lightweight and within the take-home scope.
 
 ## Project Structure
 
