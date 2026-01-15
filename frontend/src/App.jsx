@@ -13,7 +13,6 @@ import {
 import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
@@ -31,15 +30,21 @@ function App() {
     startDate: "",
     endDate: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Fetch expenses from backend on mount
   useEffect(() => {
     const fetchExpenses = async () => {
+      setLoading(true);
       try {
         const data = await getExpenses();
         setExpenses(data);
       } catch (error) {
+        setError(`Failed to fetch expenses: ${error}`);
         console.error("Failed to fetch expenses:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchExpenses();
@@ -75,6 +80,7 @@ function App() {
   // Create or update expense
   const handleSaveExpense = async (expenseData) => {
     try {
+      setLoading(true);
       if (expenseBeingEdited) {
         const updated = await updateExpense(expenseBeingEdited.id, expenseData);
         setExpenses((prev) =>
@@ -87,7 +93,10 @@ function App() {
       }
       setIsFormOpen(false);
     } catch (error) {
+      setError(`Failed to save expense: ${error}`);
       console.error("Failed to save expense:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,10 +107,14 @@ function App() {
 
   const handleDeleteExpense = async (expenseID) => {
     try {
+      setLoading(true);
       await deleteExpense(expenseID);
       setExpenses((prev) => prev.filter((expense) => expense.id !== expenseID));
     } catch (error) {
+      setError(`Failed to delete expense: ${error}`);
       console.error("Failed to delete expense:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,6 +137,8 @@ function App() {
         isFormOpen={isFormOpen}
         onAddExpense={() => setIsFormOpen(true)}
       />
+      {loading && <div>Loading expenses...</div>}
+      {error && <div className="error">{error}</div>}
       <div className="expenses-section">
         <h1 className="h1-expenses">Expenses</h1>
         <div className="expenses-layout">
