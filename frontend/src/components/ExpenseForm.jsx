@@ -82,6 +82,8 @@ const ExpenseForm = ({ initialData, onSubmit, onCancel }) => {
               id="amount"
               name="amount"
               type="number"
+              // min="0.01" prevents the user from entering negative numbers in most browsers
+              min="0.01"
               // step="0.01" reflects currency-style values and to guide browser validation
               step="0.01"
               placeholder="Amount"

@@ -67,11 +67,24 @@ router.put("/:id", (req, res) => {
     return res.status(404).json({ error: "Expense not found" });
   }
 
-  // Update fields if provided
-  if (amount !== undefined) expense.amount = amount;
-  if (date) expense.date = date;
-  if (vendor) expense.vendor = vendor;
-  if (category) expense.category = category;
+  // Validate all required fields
+  if (amount === undefined || date === undefined || !vendor || !category) {
+    return res
+      .status(400)
+      .json({
+        message: "All fields (amount, date, vendor, category) are required",
+      });
+  }
+
+  if (amount <= 0) {
+    return res.status(400).json({ message: "Amount must be a positive number" });
+  }
+
+  // Perform the update
+  expense.amount = amount;
+  expense.date = date;
+  expense.vendor = vendor;
+  expense.category = category;
 
   res.status(200).json({ message: "Expense updated successfully", expense });
 });
