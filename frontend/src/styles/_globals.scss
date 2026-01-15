@@ -18,13 +18,17 @@ body {
   &:hover {
     opacity: 0.9;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .fw-bold {
   font-weight: bold;
 }
 
-// Expenses section container
 .expenses-section {
   padding: 0 50px;
 }
@@ -32,9 +36,9 @@ body {
 // Two-column layout container (ul and filters)
 .expenses-layout {
   display: flex;
-  align-items: flex-start; // align top edges
-  gap: 2rem;               // space between columns
-  margin-top: 1rem;        // space below h1
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
 // Responsive: stack vertically on smaller screens

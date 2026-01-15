@@ -37,6 +37,7 @@ The application will be available at `http://localhost:5173` (frontend) with the
 - **Full CRUD Operations**: Create, read, update, and delete expenses
 - **Filtering**: Filter by vendor, category, and date range (inclusive)
 - **Dynamic Totals**: Total amount updates based on filtered results
+- **CSV Export**: Export the currently filtered expenses to a CSV file
 - **Responsive UI**: Mobile-friendly interface
 - **Validation & Empty States**: Client/server validation with graceful empty state handling
 
@@ -56,6 +57,9 @@ Components: Header, Filters, ExpenseList, ExpenseItem, ExpenseForm, Summary. Sta
 
 ### Form Validation
 In production, form validation and error handling would be handled using a library such as React Hook Form or Formik for robustness and maintainability.
+
+### CSV Export
+As a small bonus feature, the application allows exporting the currently filtered expenses to a CSV file. This is implemented as a frontend-only utility to keep the scope aligned with the take-home assignment.
 
 ### Additional Notes
 - **CORS**: Configured in `backend/index.js` for cross-origin requests
