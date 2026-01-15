@@ -2,7 +2,12 @@ import React from "react";
 import "../styles/components/_expenseList.scss";
 import ExpenseItem from "./ExpenseItem";
 
-const ExpenseList = ({ expenses, onEdit, onDelete }) => {
+const ExpenseList = ({ expenses, onEdit, onDelete, filters }) => {
+  const empty_state_msg =
+    filters.vendor || filters.category || filters.startDate || filters.endDate
+      ? "No results match the current filters"
+      : "No expenses available";
+
   return (
     <ul className="ul-expense-list">
       {expenses.length > 0 ? (
@@ -17,7 +22,7 @@ const ExpenseList = ({ expenses, onEdit, onDelete }) => {
           );
         })
       ) : (
-        <li>No expenses available</li>
+        <li>{empty_state_msg}</li>
       )}
     </ul>
   );

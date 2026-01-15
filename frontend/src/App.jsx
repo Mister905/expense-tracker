@@ -131,6 +131,7 @@ function App() {
             expenses={sortedExpenses}
             onEdit={handleEditExpense}
             onDelete={handleDeleteExpense}
+            filters={filters}
           />
           <Filters
             filters={filters}
