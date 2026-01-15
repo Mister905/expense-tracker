@@ -1,6 +1,7 @@
 // src/components/ExpenseCard.jsx
 import React from "react";
 import "../styles/components/_expenseItem.scss";
+import dayjs from "dayjs";
 
 const ExpenseItem = ({ expense, onEdit, onDelete }) => {
   const { amount, date, vendor, category } = expense;
@@ -10,7 +11,7 @@ const ExpenseItem = ({ expense, onEdit, onDelete }) => {
         <div><span className="fw-bold">Vendor:</span> {vendor}</div>
         <div><span className="fw-bold">Category:</span> {category}</div>
         <div><span className="fw-bold">Amount:</span> ${amount.toFixed(2)}</div>
-        <div><span className="fw-bold">Date:</span> {date}</div>
+        <div><span className="fw-bold">Date:</span> {dayjs(date).format('YYYY-MM-DD')}</div>
       </div>
       <div className="expense-actions">
         <button type="button" className="btn-custom" onClick={() => onEdit(expense)}>

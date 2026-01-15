@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import testExpenses from "./data/testExpenses";
 import Header from "./components/Header";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
@@ -14,16 +13,13 @@ import {
 import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
-const USE_TEST_DATA = true; // toggle this for dev/testing
-
 function App() {
-  const [expenses, setExpenses] = useState(USE_TEST_DATA ? testExpenses : []);
-  const [filteredExpenses, setFilteredExpenses] = useState(
-    USE_TEST_DATA ? testExpenses : []
-  );
+  const [expenses, setExpenses] = useState([]);
+  const [filteredExpenses, setFilteredExpenses] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [expenseBeingEdited, setExpenseBeingEdited] = useState(null);
   const [filters, setFilters] = useState({
@@ -33,22 +29,21 @@ function App() {
     endDate: "",
   });
 
+  // Fetch expenses from backend on mount
   useEffect(() => {
-    if (!USE_TEST_DATA) {
-      const fetchExpenses = async () => {
-        try {
-          const data = await getExpenses();
-          setExpenses(data);
-        } catch (error) {
-          console.error("Failed to fetch expenses:", error);
-        }
-      };
-      fetchExpenses();
-    }
+    const fetchExpenses = async () => {
+      try {
+        const data = await getExpenses();
+        setExpenses(data);
+      } catch (error) {
+        console.error("Failed to fetch expenses:", error);
+      }
+    };
+    fetchExpenses();
   }, []);
 
+  // Filter expenses whenever expenses or filters change
   useEffect(() => {
-    console.log(filters);
     const filtered = expenses.filter((expense) => {
       const vendorMatch =
         // If a filter field is empty, !filters.<filter> is true, so all values pass that filter.
@@ -74,6 +69,7 @@ function App() {
     setFilteredExpenses(filtered);
   }, [expenses, filters]);
 
+  // Create or update expense
   const handleSaveExpense = async (expenseData) => {
     try {
       if (expenseBeingEdited) {
@@ -88,7 +84,7 @@ function App() {
       }
       setIsFormOpen(false);
     } catch (error) {
-      console.error("Failed to submit expense:", error);
+      console.error("Failed to save expense:", error);
     }
   };
 

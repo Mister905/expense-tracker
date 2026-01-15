@@ -5,16 +5,20 @@ import ExpenseItem from "./ExpenseItem";
 const ExpenseList = ({ expenses, onEdit, onDelete }) => {
   return (
     <ul className="ul-expense-list">
-      {expenses.map((expense) => {
-        return (
-          <ExpenseItem
-            key={expense.id}
-            expense={expense}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-        );
-      })}
+      {expenses.length > 0 ? (
+        expenses.map((expense) => {
+          return (
+            <ExpenseItem
+              key={expense.id}
+              expense={expense}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          );
+        })
+      ) : (
+        <li>No expenses available</li>
+      )}
     </ul>
   );
 };
