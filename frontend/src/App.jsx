@@ -3,15 +3,17 @@ import Header from "./components/Header";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import Filters from "./components/Filters";
-import { getExpenses, createExpense } from "./services/api";
+import {
+  getExpenses,
+  createExpense,
+  updateExpense,
+  deleteExpense,
+} from "./services/api";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-
-  useEffect(() => {
-    console.log(expenses);
-  }, [expenses]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [expenseBeingEdited, setExpenseBeingEdited] = useState(null);
 
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -25,25 +27,57 @@ function App() {
     fetchExpenses();
   }, []);
 
-  const handleAddExpense = async (expense) => {
+  const handleSaveExpense = async (expenseData) => {
     try {
-      console.log('derp');
-      const newExpense = await createExpense(expense);
-      setExpenses((prev) => [...prev, newExpense]);
-      setShowForm(false);
+      if (expenseBeingEdited) {
+        const updated = await updateExpense(expenseBeingEdited.id, expenseData);
+        setExpenses((prev) =>
+          prev.map((e) => (e.id === expenseBeingEdited.id ? updated : e))
+        );
+        setExpenseBeingEdited(null);
+      } else {
+        const newExpense = await createExpense(expenseData);
+        setExpenses((prev) => [...prev, newExpense]);
+      }
+      setIsFormOpen(false);
     } catch (error) {
-      console.error("Failed to add expense:", error);
+      console.error("Failed to submit expense:", error);
+    }
+  };
+
+  const handleEditExpense = (expense) => {
+    setExpenseBeingEdited(expense);
+    setIsFormOpen(true);
+  };
+
+  const handleDeleteExpense = async (expenseID) => {
+    try {
+      await deleteExpense(expenseID);
+      setExpenses((prev) => prev.filter((expense) => expense.id !== expenseID));
+    } catch (error) {
+      console.error("Failed to delete expense:", error);
     }
   };
 
   return (
     <>
-      <Header onAddExpense={() => setShowForm(true)} />
-      <ExpenseList expenses={expenses} />
-      {showForm && (
+      <Header
+        isFormOpen={isFormOpen}
+        onAddExpense={() => setIsFormOpen(true)}
+      />
+      <ExpenseList
+        expenses={expenses}
+        onEdit={handleEditExpense}
+        onDelete={handleDeleteExpense}
+      />
+      {isFormOpen && (
         <ExpenseForm
-          onSubmit={handleAddExpense}
-          onCancel={() => setShowForm(false)}
+          initialData={expenseBeingEdited}
+          onSubmit={handleSaveExpense}
+          onCancel={() => {
+            setIsFormOpen(false);
+            setExpenseBeingEdited(null);
+          }}
         />
       )}
       <Filters />
