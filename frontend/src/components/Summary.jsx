@@ -2,7 +2,6 @@ import React from "react";
 import "../styles/components/_summary.scss";
 
 // Exports the provided expenses (typically filtered) to a downloadable CSV file.
-// Kept dependency-free and frontend-only to avoid expanding application scope.
 const exportToCSV = (expenses) => {
   // Define CSV column order explicitly for predictable output
   const headers = ["Date", "Vendor", "Category", "Amount"];

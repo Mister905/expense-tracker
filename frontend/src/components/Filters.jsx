@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/components/_Filters.scss";
 
-const Filters = ({ filters, setFilters }) => {
+const Filters = ({ filters, setFilters, clearFilters }) => {
   return (
     <>
       <h1 className="heading-filters">Filters</h1>
@@ -70,6 +70,9 @@ const Filters = ({ filters, setFilters }) => {
             />
           </label>
         </div>
+        <button className="btn-custom" onClick={() => clearFilters()}>
+          Clear Filters
+        </button>
       </div>
     </>
   );

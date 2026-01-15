@@ -37,9 +37,11 @@ The application will be available at `http://localhost:5173` (frontend) with the
 - **Full CRUD Operations**: Create, read, update, and delete expenses
 - **Filtering**: Filter by vendor, category, and date range (inclusive)
 - **Dynamic Totals**: Total amount updates based on filtered results
-- **CSV Export**: Export the currently filtered expenses to a CSV file
+- **CSV Export**: Download the currently filtered expenses as a CSV file
 - **Responsive UI**: Mobile-friendly interface
 - **Validation & Empty States**: Client/server validation with graceful empty state handling
+- **Sorting**: Expenses displayed in descending order by date
+- **Clear Filters**: Quickly reset all filter fields
 
 ## Design Choices & Notes
 

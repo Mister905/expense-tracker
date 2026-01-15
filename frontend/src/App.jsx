@@ -20,6 +20,9 @@ dayjs.extend(isSameOrBefore);
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [filteredExpenses, setFilteredExpenses] = useState([]);
+  const sortedExpenses = [...filteredExpenses].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [expenseBeingEdited, setExpenseBeingEdited] = useState(null);
   const [filters, setFilters] = useState({
@@ -106,6 +109,15 @@ function App() {
     setFilters(updatedFilters);
   };
 
+  const handleClearFilters = () => {
+    setFilters({
+      vendor: "",
+      category: "",
+      startDate: "",
+      endDate: "",
+    });
+  };
+
   return (
     <>
       <Header
@@ -116,14 +128,18 @@ function App() {
         <h1 className="h1-expenses">Expenses</h1>
         <div className="expenses-layout">
           <ExpenseList
-            expenses={filteredExpenses}
+            expenses={sortedExpenses}
             onEdit={handleEditExpense}
             onDelete={handleDeleteExpense}
           />
-          <Filters filters={filters} setFilters={handleSetFilters} />
+          <Filters
+            filters={filters}
+            setFilters={handleSetFilters}
+            clearFilters={handleClearFilters}
+          />
         </div>
       </div>
-      <Summary expenses={filteredExpenses} />
+      <Summary expenses={sortedExpenses} />
       {isFormOpen && (
         <ExpenseForm
           initialData={expenseBeingEdited}
